@@ -1,0 +1,25 @@
+﻿@model IEnumerable<PracticeWebSQL.Models.Account>
+@{
+    ViewData["Title"] = "Все пользователи";
+}
+
+<a asp-action="create">Добавить пользователя</a>
+<table class="table">
+    <tr>
+        <td>Id</td>
+        <td>Email</td>
+        <td>Login</td>
+        <td>Password</td>
+    </tr>
+    @foreach(var item in Model)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.Email</td>
+            <td>@item.Login</td>
+            <td>@item.Password</td>
+            <td><a asp-action="delete" asp-controller="home" asp-route-id="@item.ID">Удалить пользователя</a></td>
+            <td><a asp-action="edit" asp-controller="home" asp-route-id="@item.ID">Изменить пользователя</a></td>
+        </tr>
+    }
+</table>

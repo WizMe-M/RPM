@@ -24,11 +24,6 @@ namespace PracticeWebSQL.Controllers
             return View();
         }
 
-        public IActionResult Delete()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> Index()
         {
             return View(await _database.Accounts.ToListAsync());
@@ -54,12 +49,15 @@ namespace PracticeWebSQL.Controllers
         [ActionName(nameof(Edit))]
         public async Task<IActionResult> Editing(int? id)
         {
-            if (id == null) return NotFound();
-            
-            var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
-            if (user != null)
+            if (id != null)
             {
-                return View(user);
+                var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
+                if (user != null)
+                {
+                    return View(user);
+                }
+
+                return NotFound();
             }
 
             return NotFound();
@@ -68,13 +66,21 @@ namespace PracticeWebSQL.Controllers
         [HttpPost]
         public async Task<ActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
-            var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
-            
-            if (user == null) return NotFound();
-            _database.Accounts.Remove(user);
-            await _database.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (id != null)
+            {
+                var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
+
+                if (user != null)
+                {
+                    _database.Accounts.Remove(user);
+                    await _database.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+
+                return NotFound();
+            }
+
+            return NotFound();
 
         }
 
@@ -82,12 +88,16 @@ namespace PracticeWebSQL.Controllers
         [ActionName(nameof(Delete))]
         public async Task<IActionResult> Deleting(int? id)
         {
-            if (id == null) return NotFound();
-            var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
-            
-            if (user != null)
+            if (id != null)
             {
-                return View(user);
+                var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
+
+                if (user != null)
+                {
+                    return View(user);
+                }
+
+                return NotFound();
             }
 
             return NotFound();

@@ -3,7 +3,7 @@
     ViewData["Title"] = "Все пользователи";
 }
 
-<a asp-action="create">Добавить пользователя</a>
+<a asp-action="create" asp-controller="Home">Добавить пользователя</a>
 <table class="table">
     <tr>
         <td>Id</td>
@@ -18,8 +18,8 @@
             <td>@item.Email</td>
             <td>@item.Login</td>
             <td>@item.Password</td>
-            <td><a asp-action="delete" asp-controller="home" asp-route-id="@item.ID">Удалить пользователя</a></td>
-            <td><a asp-action="edit" asp-controller="home" asp-route-id="@item.ID">Изменить пользователя</a></td>
+            <td><a asp-action="delete" asp-controller="Home" asp-route-id="@item.ID">Удалить пользователя</a></td>
+            <td><a asp-action="edit" asp-controller="Home" asp-route-id="@item.ID">Изменить пользователя</a></td>
         </tr>
     }
 </table>

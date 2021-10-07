@@ -1,0 +1,27 @@
+﻿@model PracticeWebSQL.Models.Role
+
+@{
+    ViewBag.Title = "Удаление роли";
+}
+
+<div>
+    <p>Удалена следующая роль:</p>
+        <dl>
+            <dt>Id</dt>
+            <dd>
+                @Html.DisplayFor(model => model.ID);
+            </dd>
+            <dt>RoleName</dt>
+            <dd>
+                @Html.DisplayFor(model => model.RoleName);
+            </dd>
+        </dl>
+        
+        <div>
+            <form asp-action="DeleteRole" asp-controller="home" method="post">
+                <div class="form-group">
+                    <input type="submit" value="Вернуться к таблицам" class="btn btn-default"/>
+                </div>
+            </form>
+        </div>
+</div>

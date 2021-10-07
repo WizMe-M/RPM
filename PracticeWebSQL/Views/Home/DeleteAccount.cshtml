@@ -21,11 +21,16 @@
         <dd>
             @Html.DisplayFor(model => model.Password);
         </dd>
+        <dt>Роль пользователя</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Role.RoleName);
+        </dd>
     </dl>
+    
     <div>
-        <form asp-action="delete" asp-controller="home" method="post">
+        <form asp-action="DeleteAccount" asp-controller="home" method="post">
             <div class="form-group">
-                <input type="submit" value="Вернуться" class="btn btn-default"/>
+                <input type="submit" value="Вернуться к таблицам" class="btn btn-default"/>
             </div>
         </form>
     </div>

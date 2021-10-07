@@ -14,31 +14,59 @@ namespace PracticeWebSQL.Controllers
             _database = context;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var model = new DatabaseModel
+            {
+                Accounts = await _database.Accounts.ToListAsync(),
+                Roles = await _database.Roles.ToListAsync()
+            };
+            return View(model);
+        }
+
         public IActionResult Privacy()
         {
             return View();
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> CreateAccount()
         {
-            return View();
-        }
-
-        public async Task<IActionResult> Index()
-        {
-            return View(await _database.Accounts.ToListAsync());
+            var model = new AccountRolesModel
+            {
+                Account = new Account(),
+                Roles = await _database.Roles.ToListAsync()
+            };
+            return View(model);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(Account account)
+        public async Task<ActionResult> CreateAccount(Account account, int role_id)
         {
+            account.RoleID = role_id;
             _database.Accounts.Add(account);
             await _database.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [ActionName(nameof(EditAccount))]
+        public async Task<IActionResult> EditingAccount(int? id)
+        {
+            if (id != null)
+            {
+                var model = new AccountRolesModel
+                {
+                    Account = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id),
+                    Roles = await _database.Roles.ToListAsync()
+                };
+                return View(model);
+            }
+
+            return NotFound();
+        }
+
         [HttpPost]
-        public async Task<ActionResult> Edit(Account account)
+        public async Task<ActionResult> EditAccount(Account account)
         {
             _database.Accounts.Update(account);
             await _database.SaveChangesAsync();
@@ -46,12 +74,13 @@ namespace PracticeWebSQL.Controllers
         }
 
         [HttpGet]
-        [ActionName(nameof(Edit))]
-        public async Task<IActionResult> Editing(int? id)
+        [ActionName(nameof(DeleteAccount))]
+        public async Task<IActionResult> DeletingAccount(int? id)
         {
             if (id != null)
             {
                 var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
+
                 if (user != null)
                 {
                     return View(user);
@@ -64,7 +93,7 @@ namespace PracticeWebSQL.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> DeleteAccount(int? id)
         {
             if (id != null)
             {
@@ -81,20 +110,77 @@ namespace PracticeWebSQL.Controllers
             }
 
             return NotFound();
+        }
 
+        public IActionResult AddRole()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> AddRole(Role role)
+        {
+            var existing = await _database.Roles.FirstOrDefaultAsync(r => r.RoleName == role.RoleName);
+            if (existing is null)
+            {
+                _database.Roles.Add(role);
+                await _database.SaveChangesAsync();
+            }
+
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
-        [ActionName(nameof(Delete))]
-        public async Task<IActionResult> Deleting(int? id)
+        [ActionName(nameof(EditRole))]
+        public async Task<IActionResult> EditingRole(int? id)
         {
             if (id != null)
             {
-                var user = await _database.Accounts.FirstOrDefaultAsync(user => user.ID == id);
+                var role = await _database.Roles.FirstOrDefaultAsync();
+                return View(role);
+            }
 
-                if (user != null)
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> EditRole(Role role)
+        {
+            var existing = await _database.Roles.FirstOrDefaultAsync(r => r.RoleName == role.RoleName);
+            if (existing is null)
+            {
+                _database.Roles.Update(role);
+                await _database.SaveChangesAsync();
+            }
+            
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [ActionName(nameof(DeleteRole))]
+        public async Task<IActionResult> DeletingRole(int? id)
+        {
+            if (id != null)
+            {
+                var role = await _database.Roles.FirstOrDefaultAsync(r => r.ID == id);
+                return View(role);
+            }
+
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteRole(int? id)
+        {
+            if (id != null)
+            {
+                var role = await _database.Roles.FirstOrDefaultAsync(r => r.ID == id);
+                
+                if (role != null)
                 {
-                    return View(user);
+                    _database.Roles.Remove(role);
+                    await _database.SaveChangesAsync();
+                    return RedirectToAction("Index");
                 }
 
                 return NotFound();

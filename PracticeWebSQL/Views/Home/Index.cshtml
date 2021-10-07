@@ -1,25 +1,47 @@
-﻿@model IEnumerable<PracticeWebSQL.Models.Account>
+﻿@model PracticeWebSQL.Models.DatabaseModel
 @{
     ViewData["Title"] = "Все пользователи";
 }
 
-<a asp-action="create" asp-controller="Home">Добавить пользователя</a>
+<a asp-action="CreateAccount" asp-controller="Home">Добавить пользователя</a>
 <table class="table">
     <tr>
         <td>Id</td>
         <td>Email</td>
         <td>Login</td>
         <td>Password</td>
+        <td>Role</td>
     </tr>
-    @foreach(var item in Model)
+    @foreach(var item in Model.Accounts)
     {
         <tr>
             <td>@item.ID</td>
             <td>@item.Email</td>
             <td>@item.Login</td>
             <td>@item.Password</td>
-            <td><a asp-action="delete" asp-controller="Home" asp-route-id="@item.ID">Удалить пользователя</a></td>
-            <td><a asp-action="edit" asp-controller="Home" asp-route-id="@item.ID">Изменить пользователя</a></td>
+            <td>@item.Role.RoleName</td>
+            
+            <td><a asp-action="EditAccount" asp-controller="Home" asp-route-id="@item.ID">Изменить пользователя</a></td>
+            <td><a asp-action="DeleteAccount" asp-controller="Home" asp-route-id="@item.ID">Удалить пользователя</a></td>
         </tr>
     }
 </table>
+
+<a asp-action="AddRole" asp-controller="Home">Добавить роль</a>
+<table class="table">
+    <tr>
+        <td>ID</td>
+        <td>RoleName</td>
+    </tr>
+    @foreach(var item in Model.Roles)
+    {
+        <tr>
+            <td>@item.ID</td>
+            <td>@item.RoleName</td>
+
+            <td><a asp-action="EditRole" asp-controller="Home" asp-route-id="@item.ID">Переименовать роль</a></td>
+            <td><a asp-action="DeleteRole" asp-controller="Home" asp-route-id="@item.ID">Удалить роль</a></td>
+        </tr>
+    }
+</table>
+

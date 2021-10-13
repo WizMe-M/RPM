@@ -3,13 +3,17 @@
     ViewData["Title"] = "Все пользователи";
 }
 
-<a asp-action="create" asp-controller="Home">Добавить пользователя</a>
+<a asp-action="create" asp-controller="Account">Добавить пользователя</a>
 <table class="table">
     <tr>
         <td>Id</td>
         <td>Email</td>
         <td>Login</td>
         <td>Password</td>
+        <td>FirstName</td>
+        <td>SecondName</td>
+        <td>MiddleName</td>
+        <td>BirthDate</td>
     </tr>
     @foreach(var item in Model)
     {
@@ -18,8 +22,12 @@
             <td>@item.Email</td>
             <td>@item.Login</td>
             <td>@item.Password</td>
-            <td><a asp-action="delete" asp-controller="Home" asp-route-id="@item.ID">Удалить пользователя</a></td>
-            <td><a asp-action="edit" asp-controller="Home" asp-route-id="@item.ID">Изменить пользователя</a></td>
+            <td>@item.FirstName</td>
+            <td>@item.SecondName</td>
+            <td>@item.MiddleName</td>
+            <td>@item.BirthDate.ToShortDateString()</td>
+            <td><a asp-action="delete" asp-controller="Account" asp-route-id="@item.ID">Удалить пользователя</a></td>
+            <td><a asp-action="edit" asp-controller="Account" asp-route-id="@item.ID">Изменить пользователя</a></td>
         </tr>
     }
 </table>

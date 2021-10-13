@@ -19,7 +19,7 @@
             <td>@item.Email</td>
             <td>@item.Login</td>
             <td>@item.Password</td>
-            <td>@item.Role.RoleName</td>
+            <td>@item.Role.Name</td>
             
             <td><a asp-action="EditAccount" asp-controller="Home" asp-route-id="@item.ID">Изменить пользователя</a></td>
             <td><a asp-action="DeleteAccount" asp-controller="Home" asp-route-id="@item.ID">Удалить пользователя</a></td>
@@ -37,7 +37,7 @@
     {
         <tr>
             <td>@item.ID</td>
-            <td>@item.RoleName</td>
+            <td>@item.Name</td>
 
             <td><a asp-action="EditRole" asp-controller="Home" asp-route-id="@item.ID">Переименовать роль</a></td>
             <td><a asp-action="DeleteRole" asp-controller="Home" asp-route-id="@item.ID">Удалить роль</a></td>

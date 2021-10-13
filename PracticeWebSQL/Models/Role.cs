@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace PracticeWebSQL.Models
 {
@@ -6,6 +7,11 @@ namespace PracticeWebSQL.Models
     {
         [Key]
         public int ID { get; set; }
-        public string RoleName { get; set; }
+        public string Name { get; set; }
+        public List<Account> Users { get; set; }
+        public Role()
+        {
+            Users = new List<Account>();
+        }
     }
 }

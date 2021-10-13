@@ -10,7 +10,7 @@ namespace PracticeWebSQL.Models
         public string Email { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public int RoleID { get; set; }
+        public int? RoleID { get; set; }
         
         [ForeignKey(nameof(RoleID))] 
         public Role Role { get; set; }

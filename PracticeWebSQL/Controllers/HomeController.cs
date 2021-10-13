@@ -120,7 +120,7 @@ namespace PracticeWebSQL.Controllers
         [HttpPost]
         public async Task<ActionResult> AddRole(Role role)
         {
-            var existing = await _database.Roles.FirstOrDefaultAsync(r => r.RoleName == role.RoleName);
+            var existing = await _database.Roles.FirstOrDefaultAsync(r => r.Name == role.Name);
             if (existing is null)
             {
                 _database.Roles.Add(role);
@@ -146,7 +146,7 @@ namespace PracticeWebSQL.Controllers
         [HttpPost]
         public async Task<ActionResult> EditRole(Role role)
         {
-            var existing = await _database.Roles.FirstOrDefaultAsync(r => r.RoleName == role.RoleName);
+            var existing = await _database.Roles.FirstOrDefaultAsync(r => r.Name == role.Name);
             if (existing is null)
             {
                 _database.Roles.Update(role);

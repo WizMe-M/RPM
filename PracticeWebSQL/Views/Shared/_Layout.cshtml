@@ -1,29 +1,28 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-</head>
-
-<head>
+    <title>Dimension by HTML5 UP</title>
     @await Html.PartialAsync("_CssPartial")
     @await Html.PartialAsync("_MetatagsPartial")
 </head>
-<body>
 
-@await Html.PartialAsync("_HeaderPartial")
+<body class="is-preload">
 
-<div class="container">
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
+<div id="wrapper">
+    @await Html.PartialAsync("_HeaderPartial")
+
+    <div id="main">
+        <article id="intro">
+            @RenderBody()
+        </article>
+    </div>
+
+    @await Html.PartialAsync("_FooterPartial")
 </div>
 
-@await Html.PartialAsync("_FooterPartial")
+<div id="bg"></div>
 
 @await Html.PartialAsync("_ScriptsPartial")
-@await RenderSectionAsync("Scripts", required: false)
+@await RenderSectionAsync("Scripts", false)
 </body>
 </html>
-
-
-
-

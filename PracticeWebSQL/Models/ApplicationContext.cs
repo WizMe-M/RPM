@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PracticeWebSQL.Models.DatabaseIdentities;
 
 namespace PracticeWebSQL.Models
 {
@@ -18,10 +19,9 @@ namespace PracticeWebSQL.Models
             var adminAccount = new Account()
             {
                 ID = 1, 
-                Email = "admin@mail.ru", 
-                Login = "Admin",
-                Password = "admin",
-                RoleID = adminRole.ID
+                Email = "admin@mail.ru",
+                Password = "admin"
+                // RoleID = adminRole.ID                
             };
 
             modelBuilder.Entity<Role>().HasData(adminRole, userRole);

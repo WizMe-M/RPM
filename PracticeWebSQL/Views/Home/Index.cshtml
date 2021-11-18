@@ -1,47 +1,33 @@
-﻿@model PracticeWebSQL.Models.DatabaseModel
+﻿@model IEnumerable<PracticeWebSQL.Models.DatabaseIdentities.Account>
 @{
     ViewData["Title"] = "Все пользователи";
 }
 
-<a asp-action="CreateAccount" asp-controller="Home">Добавить пользователя</a>
+<a asp-action="create" asp-controller="Account">Добавить пользователя</a>
 <table class="table">
     <tr>
         <td>Id</td>
         <td>Email</td>
         <td>Login</td>
         <td>Password</td>
-        <td>Role</td>
+        <td>FirstName</td>
+        <td>SecondName</td>
+        <td>MiddleName</td>
+        <td>BirthDate</td>
     </tr>
-    @foreach(var item in Model.Accounts)
+    @foreach(var item in Model)
     {
         <tr>
             <td>@item.ID</td>
             <td>@item.Email</td>
             <td>@item.Login</td>
             <td>@item.Password</td>
-            <td>@item.Role.Name</td>
-            
-            <td><a asp-action="EditAccount" asp-controller="Home" asp-route-id="@item.ID">Изменить пользователя</a></td>
-            <td><a asp-action="DeleteAccount" asp-controller="Home" asp-route-id="@item.ID">Удалить пользователя</a></td>
+            <td>@item.FirstName</td>
+            <td>@item.SecondName</td>
+            <td>@item.MiddleName</td>
+            <td>@item.BirthDate.ToShortDateString()</td>
+            <td><a asp-action="delete" asp-controller="Account" asp-route-id="@item.ID">Удалить пользователя</a></td>
+            <td><a asp-action="edit" asp-controller="Account" asp-route-id="@item.ID">Изменить пользователя</a></td>
         </tr>
     }
 </table>
-
-<a asp-action="AddRole" asp-controller="Home">Добавить роль</a>
-<table class="table">
-    <tr>
-        <td>ID</td>
-        <td>RoleName</td>
-    </tr>
-    @foreach(var item in Model.Roles)
-    {
-        <tr>
-            <td>@item.ID</td>
-            <td>@item.Name</td>
-
-            <td><a asp-action="EditRole" asp-controller="Home" asp-route-id="@item.ID">Переименовать роль</a></td>
-            <td><a asp-action="DeleteRole" asp-controller="Home" asp-route-id="@item.ID">Удалить роль</a></td>
-        </tr>
-    }
-</table>
-

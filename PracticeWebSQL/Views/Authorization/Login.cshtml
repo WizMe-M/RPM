@@ -1,0 +1,32 @@
+﻿@model PracticeWebSQL.ViewModels.AuthorizationAccountModel
+
+@{
+    ViewBag.Title = "Авторизация";
+}
+
+<h1>Войти в аккаунт</h1>
+<form asp-controller="Authorization" asp-action="Login">
+    <div asp-validation-summary="ModelOnly"></div>
+    
+    <div>
+        <label asp-for="Email"></label><br/>
+        <input asp-for="Email"/>
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    
+    <div>
+        <input type="submit" value="Войти" />
+    </div>
+</form>
+<br/>
+<form asp-controller="Authorization" asp-action="Register">
+    <div>
+        <input type="submit" value="У меня нет аккаунта"/>
+    </div>
+</form>
